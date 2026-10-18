@@ -1,148 +1,73 @@
+# Python Automation & Scripting Lab
 
-# Module Lab: Automating Python Projects with Pip, PyPi & Scripting
+## Description
 
-## Learning Goals
+This project demonstrates Python scripting for automation tasks. It is designed to show how to generate dynamic log files, interact with external APIs using third-party libraries, and properly manage project dependencies.
 
-- Automate Python tasks using command-line scripts.
-- Use pip to install and manage external packages.
-- Write modular Python scripts with clean entry points.
-- Track dependencies using a requirements.txt file.
-- Generate structured outputs using file I/O techniques.
+The code follows best practices by separating concerns into distinct functions, using virtual environments for isolation, and tracking exact package versions for reproducibility.
 
-## Introduction
+## Features
 
-In this lab, you will build a **Python automation tool** that uses pip-installed packages and scriptable logic to automate a real-world task. Your script will:
+**Log Generation**: Automatically generates a dated `.txt` file (e.g., `log_20261018.txt`) containing a list of provided log entries.
 
-- Use pip to install third-party packages (e.g., `requests`).
-- Fetch or process external data.
-- Write structured output to a local file.
-- Track all dependencies in `requirements.txt` for reproducibility.
+**Input Validation**: Ensures that the data passed to the log generator is a list, raising a `ValueError` if not.
 
-This lab emphasizes automation, scripting practices, and environment management using the standard Python ecosystem.
+**API Integration**: Uses the `requests` library to fetch data from a public API (`jsonplaceholder.typicode.com`) and parses the JSON response.
 
-## Setup Instructions
+**Separation of Concerns**: Logic is encapsulated into reusable functions (`generate_log` and `fetch_data`).
 
-### Fork and Clone the Repository
+**Safe Execution**: The script logic is wrapped in the `if __name__ == "__main__":` block, ensuring it only runs when executed directly, not when imported.
 
-1. Go to the provided GitHub repository link.
-2. Fork the repository to your GitHub account.
-3. Clone the forked repository to your local machine using:
+## Requirements & Dependencies
 
-```bash
-git clone <repo-url>
-cd module-lab-pip-pypi-scripting
-```
+This project uses an isolated virtual environment. All dependencies are documented in the `requirements.txt` file to ensure consistent environments across systems.
 
-### Install Python and pip
+`requests==2.32.4`
+`certifi==2026.7.22`
+`charset-normalizer==3.5.2`
+`idna==3.15`
+`urllib3==2.2.3`
 
-Ensure Python and pip are installed:
+## Installation & Setup
+
+1. **Clone the repository:**
 
 ```bash
-python --version
-pip --version
+   git clone https://github.com/YourUsername/course-7-module-6-pip-pypi-scripting-lab.git
+   cd course-7-module-6-pip-pypi-scripting-lab
 ```
 
-Optionally, create a virtual environment:
+## Create and activate a virtual environment:
 
 ```bash
-python -m venv venv
-source venv/bin/activate  # macOS/Linux
-venv\Scripts\activate   # Windows
+pipenv install
+pipenv shell
 ```
 
-Install any required dependencies:
+Install dependencies from the requirements file:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Tasks
+## Usage & Testing
 
-### Task 1: Define the Problem
-
-Your goal is to create a **Python script** that automates a small task:
-
-- Uses one or more pip-installed packages (e.g., `requests`, `pandas`, `rich`)
-- Outputs data to a `.txt` or `.csv` file using File I/O
-- Logs or prints messages to confirm behavior
-- Is executable from the command line
-- Records dependencies in `requirements.txt`
-
----
-
-### Task 2: Determine the Design
-
-You will implement a script with the following design principles:
-
-- Use `pip` to install packages
-- Import modules inside a Python script
-- Wrap logic in `if __name__ == "__main__"` to support reusability
-- Structure output files with filenames that include timestamps
-- Track dependencies using `pip freeze > requirements.txt`
-
----
-
-### Task 3: Develop and Run Your Script
-
-#### Step 1: Create a script called `generate_log.py`
-
-```python
-from datetime import datetime
-
-log_data = ["User logged in", "User updated profile", "Report exported"]
-filename = f"log_{datetime.now().strftime('%Y%m%d')}.txt"
-
-with open(filename, "w") as file:
-    for entry in log_data:
-        file.write(f"{entry}\n")
-
-print(f"Log written to {filename}")
-```
-
-#### Step 2: Add an API integration using `requests`
-
-```python
-import requests
-
-def fetch_data():
-    response = requests.get("https://jsonplaceholder.typicode.com/posts/1")
-    if response.status_code == 200:
-        return response.json()
-    return {}
-
-if __name__ == "__main__":
-    post = fetch_data()
-    print("Fetched Post Title:", post.get("title", "No title found"))
-```
-
-#### Step 3: Track your dependencies
-
-After installing any packages with `pip install ...`, run:
+To run the automation script:
 
 ```bash
-pip freeze > requirements.txt
+python generate_log.py
 ```
 
----
+## Run the test suite
 
-## Best Practices
+```bash
+pytest -x testing/
+```
 
-- Use clear function names (`fetch_data`, `write_log`) for clarity.
-- Always check file write success with print or logging statements.
-- Avoid hardcoding data—use variables and functions where appropriate.
-- Use virtual environments to isolate dependencies.
-- Wrap script logic in `if __name__ == "__main__"` for script reusability.
+## Completed Work
 
----
+![Screenshot](img/Screenshot%20From%202026-10-18%2012-16-41.png)
 
-## Conclusion
+## License
 
-After completing this lab, you will:
-
-✅ Automate tasks with Python scripting  
-✅ Use external packages from PyPi with pip  
-✅ Track project dependencies with `requirements.txt`  
-✅ Generate structured output files from your script  
-✅ Structure projects for portability and collaboration
-
-These scripting and packaging skills are essential for building automation tools and working in modern Python development workflows.
+This project is open-source and available under the MIT License.
